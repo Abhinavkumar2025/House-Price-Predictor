@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🏠 House Price Predictor</h1>
+
+    <div class="sections">
+        <div class="section-card">
+            <div class="section-title">Property details</div>
+            <div class="field">
+                <label>Total rooms <span id="lbl-rooms">20</span></label>
+                <input type="range" min="1" max="100" value="20" step="1" id="sl-rooms" oninput="syncSlider('rooms',this.value)">
+                <input type="number" class="num-input" id="inp-rooms" value="20" min="1" max="100" oninput="syncInput('rooms',this.value)">
+            </div>
+            <div class="field">
+                <label>Bedrooms <span id="lbl-bedrooms">5</span></label>
+                <input type="range" min="1" max="50" value="5" step="1" id="sl-bedrooms" oninput="syncSlider('bedrooms',this.value)">
+                <input type="number" class="num-input" id="inp-bedrooms" value="5" min="1" max="50" oninput="syncInput('bedrooms',this.value)">
+            </div>
+            <div class="field">
+                <label>House age <span id="lbl-age">20</span> yrs</label>
+                <input type="range" min="1" max="100" value="20" step="1" id="sl-age" oninput="syncSlider('age',this.value)">
+                <input type="number" class="num-input" id="inp-age" value="20" min="1" max="100" oninput="syncInput('age',this.value)">
+            </div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">Neighborhood</div>
+            <div class="field">
+                <label>Population <span id="lbl-pop">1400</span></label>
+                <input type="range" min="100" max="10000" value="1400" step="50" id="sl-pop" oninput="syncSlider('pop',this.value)">
+                <input type="number" class="num-input" id="inp-pop" value="1400" min="100" max="10000" oninput="syncInput('pop',this.value)">
+            </div>
+            <div class="field">
+                <label>Households <span id="lbl-hh">500</span></label>
+                <input type="range" min="10" max="5000" value="500" step="10" id="sl-hh" oninput="syncSlider('hh',this.value)">
+                <input type="number" class="num-input" id="inp-hh" value="500" min="10" max="5000" oninput="syncInput('hh',this.value)">
+            </div>
+            <div class="field">
+                <label>Median income <span id="lbl-inc">$4.5k</span></label>
+                <input type="range" min="0.5" max="15" value="4.5" step="0.1" id="sl-inc" oninput="syncSlider('inc',this.value)">
+                <input type="number" class="num-input" id="inp-inc" value="4.5" min="0.5" max="15" step="0.1" oninput="syncInput('inc',this.value)">
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card coord-card">
+        <div class="section-title">Location coordinates</div>
+        <div class="coord-grid">
+            <div class="field">
+                <label>Longitude <span id="lbl-lng">-119.6</span></label>
+                <input type="range" min="-124.5" max="-114.1" value="-119.6" step="0.1" id="sl-lng" oninput="syncSlider('lng',this.value)">
+            </div>
+            <div class="field">
+                <label>Latitude <span id="lbl-lat">35.6</span></label>
+                <input type="range" min="32.5" max="42" value="35.6" step="0.1" id="sl-lat" oninput="syncSlider('lat',this.value)">
+            </div>
+        </div>
+        <div class="coord-hint">California range: lng −124.5 to −114.1 · lat 32.5 to 42.0</div>
+    </div>
+
+    <div class="predict-bar">
+        <button onclick="predictPrice()">Predict Price</button>
+        <div class="result-area">
+            <div class="result-label">Estimated value</div>
+            <div id="result">—</div>
+            <div class="confidence-bar"><div class="confidence-fill" id="conf-fill"></div></div>
+        </div>
+    </div>
+
+    <div class="breakdown" id="breakdown">
+        <div class="metric-card">
+            <div class="metric-label">Rooms per household</div>
+            <div class="metric-value" id="m-rph">—</div>
+            <div id="tag-rph"></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">Bedrooms per room</div>
+            <div class="metric-value" id="m-bpr">—</div>
+            <div id="tag-bpr"></div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">People per household</div>
+            <div class="metric-value" id="m-pph">—</div>
+            <div id="tag-pph"></div>
+        </div>
+    </div>
+
+    <div class="error-msg" id="err-msg">Could not connect to /predict — make sure your Flask server is running.</div>
+</div>
+<script src="/static/script.js"></script>
+</body>
+</html>
